@@ -1,6 +1,6 @@
 from re import I
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 # Create your views here.
 
@@ -22,8 +22,8 @@ months = {
 def monthly_challenge_number(request, month):
     try:
         keys = list(months.keys())
-        month_index = keys[month-1]
-        return HttpResponse(months[month_index])
+        forward_month = keys[month-1]
+        return HttpResponseRedirect("/challenges/" + forward_month)
     except:
         return HttpResponseNotFound("This month not supported")
 
